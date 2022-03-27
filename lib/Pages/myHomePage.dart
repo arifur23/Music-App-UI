@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ui_design_four/Pages/musicPage.dart';
 import 'package:ui_design_four/Pages/songPage.dart';
 
 import '../constant/consts.dart';
@@ -50,7 +51,7 @@ class MyHomePage extends StatelessWidget {
               ),
               child:  TextButton(
                 onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (_) => const SongPage()));
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => const MusicPage()));
                 },
                 child: const Text("Let's Listen",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 25)),
               ),

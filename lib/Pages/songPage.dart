@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ui_design_four/constant/consts.dart';
 
+import '../Widgets/musicItems.dart';
+
 class SongPage extends StatefulWidget {
   const SongPage({Key? key}) : super(key: key);
 
@@ -13,7 +15,7 @@ class _SongPageState extends State<SongPage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: kthdColor,
+      backgroundColor: kthrdColor,
       appBar: AppBar(
         actions: [
           Padding(
@@ -35,7 +37,7 @@ class _SongPageState extends State<SongPage> {
                         onPressed: (){
                           // Navigator.pop(context);
                         },
-                        icon : Icon(Icons.favorite, size: 25, color: Colors.white.withOpacity(.5),),
+                        icon : Icon(Icons.favorite_border, size: 25, color: Colors.white.withOpacity(.5),),
                       ),
                     ),
                   ]
@@ -69,7 +71,7 @@ class _SongPageState extends State<SongPage> {
             ),
           ),
         ),
-        backgroundColor: kthdColor,
+        backgroundColor: kthrdColor,
         elevation: 0,
       ),
       body: CustomScrollView(
@@ -94,67 +96,10 @@ class _SongPageState extends State<SongPage> {
                     width: size.width * .90,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(15),
-                        child: Image.asset("assets/images.jpg",fit: BoxFit.cover,)),
+                        child: Image.asset("assets/image.png",fit: BoxFit.cover,)),
                   ),
                   const SizedBox(height: 40,),
-                 Column(
-                   children: [
-                     Container(
-                       height: 30,
-                       width: size.width,
-                       child: SliderClass(),
-                     ),
-                     const SizedBox(height: 8,),
-                     Padding(
-                       padding: const EdgeInsets.symmetric(horizontal: 24),
-                       child: Row(
-                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                         children: [
-                           Text("22.2",style: SongTimeStyle,),
-                           Text("44.0",style: SongTimeStyle,),
-                         ],
-                       ),
-                     ),
-                     // const SizedBox(height: 8,),
-                     Padding(
-                       padding: const EdgeInsets.symmetric(horizontal: 137),
-                       child: Row(
-                         children:  [
-                           const IconButton(
-                             onPressed: null,
-                             icon: Icon(Icons.skip_next,color: Colors.white,),
-                             color: Colors.white,
-                           ),
-                           const SizedBox(width: 6,),
-                           Container(
-                             height: 35,
-                             width: 35,
-                             decoration: BoxDecoration(
-                               borderRadius: BorderRadius.circular(50),
-                               color: kSecondaryColor
-                             ),
-                             child: Stack(
-                               children: const [
-                               Positioned(
-                                 top: -6,
-                                 left: -6,
-                                 child: IconButton(
-                                 onPressed: null,
-                                 icon: Icon(Icons.pause,color: Colors.black,size: 27,),
-                                 ),
-                               )],
-                             ),
-                           ),
-                           const IconButton(
-                             onPressed: null,
-                             icon: Icon(Icons.skip_previous,color: Colors.white,),
-                             color: Colors.white,
-                           )
-                         ],
-                       ),
-                     )
-                   ],
-                 )
+                 MusicItems()
                 ],
               )
             ]
@@ -166,29 +111,3 @@ class _SongPageState extends State<SongPage> {
 }
 
 
-class SliderClass extends StatefulWidget {
-  const SliderClass({Key? key}) : super(key: key);
-
-  @override
-  State<SliderClass> createState() => _SliderClassState();
-}
-
-class _SliderClassState extends State<SliderClass> {
-  double Cvalue = 20;
-  @override
-  Widget build(BuildContext context) {
-
-    return Slider(
-      value: Cvalue,
-      activeColor: kSecondaryColor,
-      inactiveColor: Color(0xFF808081),
-      max: 100,
-      label: Cvalue.round().toString(),
-      onChanged: (double value) {
-        setState(() {
-          Cvalue = value;
-        });
-      },
-    );
-  }
-}
