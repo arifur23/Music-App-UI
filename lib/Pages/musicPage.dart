@@ -1,10 +1,9 @@
-import 'dart:ffi';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ui_design_four/Pages/songPage.dart';
+import 'package:ui_design_four/Widgets/musicGridItem.dart';
 import 'package:ui_design_four/Widgets/musicItems.dart';
 import 'package:ui_design_four/constant/consts.dart';
+import 'package:ui_design_four/Classes/SongData.dart';
 
 class MusicPage extends StatefulWidget {
   const MusicPage({Key? key}) : super(key: key);
@@ -17,12 +16,15 @@ class _MusicPageState extends State<MusicPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    /*24 is for notification bar on Android*/
+    final double itemHeight = (size.height - 80 - 24) / 2;
+    final double itemWidth = size.width / 2;
     return Scaffold(
       backgroundColor: kthrdColor,
       appBar: AppBar(
         titleSpacing: 3.5,
-        title: const Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 10),
+        title: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child:  Text('Relaxation By',style: PageHeading,),
         ),
         elevation: 0,
@@ -41,17 +43,17 @@ class _MusicPageState extends State<MusicPage> {
           slivers: [
             SliverList(delegate: SliverChildListDelegate(
                 [
-                  const Text('Listening Music',style: PageHeading,),
+                  Text('Listening Music',style: PageHeading,),
                   const SizedBox(height: 30,),
                   Text("Continue",style: TextStyle(letterSpacing: 1.2, fontSize: 20,fontWeight: FontWeight.w500,color: Colors.white.withOpacity(.3)),),
                   const SizedBox(height: 25,),
                   InkWell(
                     onTap: ()
                     {
-                      Navigator.push(context, MaterialPageRoute(builder: (_) => const SongPage()));
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => const SongPage(title: 'Sleep Tight', name: 'Sleep Relaxing', image: 'assets/7.jpg', description: 'Something informative',)));
                     },
                     child: Container(
-                      height: 300,
+                      height: 280,
                       width: size.width * .85,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
@@ -62,7 +64,7 @@ class _MusicPageState extends State<MusicPage> {
                         children: [
                           ClipRRect(
                               borderRadius: BorderRadius.circular(15),
-                              child: Image.asset("assets/image.png",width: size.width * .96,fit: BoxFit.cover,)),
+                              child: Image.asset("assets/7.jpg",width: size.width * .96,fit: BoxFit.cover,)),
                           const Positioned(
                             top: 25,
                               left: 30,
@@ -74,7 +76,7 @@ class _MusicPageState extends State<MusicPage> {
                             ),
                           ),
                           Positioned(
-                            top: 90,
+                            top: 85,
                             left: 160,
                             child: Container(
                               height: 50,
@@ -95,7 +97,7 @@ class _MusicPageState extends State<MusicPage> {
                             ),
                           ),
                           Positioned(
-                            top: 175,
+                            top: 170,
                             left: -5,
                             child: Container(
                               height: 150,
@@ -116,11 +118,15 @@ class _MusicPageState extends State<MusicPage> {
                     ],
                   ),
                   const SizedBox(height: 30,),
-                  SliverGrid.count(
+                  GridView.count(
+                    childAspectRatio: (itemWidth / itemHeight),
+                    scrollDirection: Axis.vertical,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
                     crossAxisCount: 2,
-                    childAspectRatio: 1,
-                    children: const [],
-                  )
+                     children: songData.map((songItem) => MusicGridItem(name: songItem.name,duration: songItem.duration,singer: songItem.singer,image: songItem.image,)).toList(),
+                  ),
+                  const SizedBox(height: 30,),
                 ]
             ))
           ],
